@@ -1,6 +1,6 @@
 # 🌾 RuralFund – Cloud-Based Microlending Platform (Offline-First)
 
-## 📌 Project Summary
+##  Project Summary
 
 **RuralFund** is a cloud-native microlending platform designed for rural borrowers who face unstable internet access.
 
@@ -10,7 +10,7 @@ This ensures villagers can reliably request loans, view repayment schedules, and
 
 ---
 
-## 🏗️ Core Components
+##  Core Components
 
 **1. Frontend (PWA)**
 
@@ -39,7 +39,7 @@ This ensures villagers can reliably request loans, view repayment schedules, and
 
 ---
 
-## 🔄 Workflows
+##  Workflows
 
 ### 👩‍🌾 Borrower Workflow
 
@@ -56,7 +56,7 @@ This ensures villagers can reliably request loans, view repayment schedules, and
 
 ---
 
-### 💰 Lender Workflow
+###  Lender Workflow
 
 **Online:**
 
@@ -66,7 +66,7 @@ This ensures villagers can reliably request loans, view repayment schedules, and
 
 ---
 
-### 🔧 Backend Workflow (Sync & Conflict Resolution)
+###  Backend Workflow (Sync & Conflict Resolution)
 
 1. Borrower submits/updates loan data offline
 2. On reconnect, PWA sends pending transactions to **Sync API (AWS Lambda)**
@@ -79,7 +79,7 @@ This ensures villagers can reliably request loans, view repayment schedules, and
 
 ---
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 * **Frontend:** React, HTML, CSS, JS, Dexie.js
 * **Backend:** AWS Lambda, API Gateway, DynamoDB
@@ -89,6 +89,7 @@ This ensures villagers can reliably request loans, view repayment schedules, and
 * **Version Control & Dev Tools:** GitHub, Postman
 
 ---
+
 
 
 
