@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RuralFund - Lender Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo">
+                <h1>Rural<span>Fund</span></h1>
+            </div>
+            <ul class="nav-links">
+                <li class="active" data-page="dashboard"><a href="#"><i>📊</i> Dashboard</a></li>
+                <li data-page="loan-applications"><a href="#"><i>📝</i> Loan Applications</a></li>
+                <li data-page="approved-loans"><a href="#"><i>✅</i> Approved Loans</a></li>
+                <li data-page="analytics"><a href="#"><i>📈</i> Analytics</a></li>
+                <li data-page="settings"><a href="#"><i>⚙️</i> Settings</a></li>
+            </ul>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="header">
+                <h2 id="page-title">Lender Dashboard</h2>
+                <div class="user-info">
+                    <img src="https://i.pravatar.cc/40" alt="User">
+                    <span>Admin</span>
+                </div>
+            </div>
+            
+            <!-- Dashboard Page -->
+            <div id="dashboard" class="page-section active">
+                <!-- Stats Cards -->
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <div class="stat-icon pending">
+                            ⏱️
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="pending-loans-count">0</h3>
+                            <p>Pending Loans</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon approved">
+                            ✅
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="approved-loans-count">0</h3>
+                            <p>Approved Loans</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon total">
+                            💰
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="total-loans-amount">₹0</h3>
+                            <p>Total Amount Lent</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon repaid">
+                            🔄
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="repaid-loans-count">0</h3>
+                            <p>Repaid Loans</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Recent Loan Applications -->
+                <div class="loans-section">
+                    <div class="section-header">
+                        <h3>Recent Loan Applications</h3>
+                    </div>
+                    
+                    <div id="dashboard-loans-loading" class="loading">
+                        Loading loan applications...
+                    </div>
+                    
+                    <div id="dashboard-loans-error" class="error" style="display: none;">
+                        Failed to load loan applications.
+                        <button class="retry-btn" onclick="loadDashboardLoans()">Retry</button>
+                    </div>
+                    
+                    <table id="dashboard-loans-table" style="display: none;">
+                        <thead>
+                            <tr>
+                                <th>Loan ID</th>
+                                <th>Applicant</th>
+                                <th>Amount</th>
+                                <th>Purpose</th>
+                                <th>Email</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="loans-table-body">
+                            <!-- Loan data will be populated from API -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Loan Applications Page -->
+            <div id="loan-applications" class="page-section">
+                <div class="loans-section">
+                    <div class="section-header">
+                        <h3>All Loan Applications</h3>
+                        <div class="filter-options">
+                            <button class="filter-btn active" data-filter="all">All</button>
+                            <button class="filter-btn" data-filter="pending">Pending</button>
+                            <button class="filter-btn" data-filter="approved">Approved</button>
+                            <button class="filter-btn" data-filter="rejected">Rejected</button>
+                        </div>
+                    </div>
+                    
+                    <div id="applications-loading" class="loading">
+                        Loading loan applications...
+                    </div>
+                    
+                    <div id="applications-error" class="error" style="display: none;">
+                        Failed to load loan applications.
+                        <button class="retry-btn" onclick="loadAllLoans()">Retry</button>
+                    </div>
+                    
+                    <table id="applications-table" style="display: none;">
+                        <thead>
+                            <tr>
+                                <th>Loan ID</th>
+                                <th>Applicant</th>
+                                <th>Amount</th>
+                                <th>Purpose</th>
+                                <th>Email</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="applications-table-body">
+                            <!-- Loan applications data from API -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Approved Loans Page -->
+            <div id="approved-loans" class="page-section">
+                <div class="loans-section">
+                    <div class="section-header">
+                        <h3>Approved Loans</h3>
+                    </div>
+                    
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Loan ID</th>
+                                <th>Applicant</th>
+                                <th>Amount</th>
+                                <th>Purpose</th>
+                                <th>Email</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="approved-table-body">
+                            <!-- Approved loans data will be populated here by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Analytics Page -->
+            <div id="analytics" class="page-section">
+                <div class="analytics-container">
+                    <div class="chart-container">
+                        <h3>Loan Performance</h3>
+                        <div class="chart-placeholder">
+                            Loan Analytics Chart (To be integrated)
+                        </div>
+                    </div>
+                    <div class="summary-container">
+                        <h3>Summary</h3>
+                        <div class="summary-item">
+                            <div class="summary-label">Total Loans Disbursed</div>
+                            <div class="summary-value">N/A</div>
+                        </div>
+                        <div class="summary-item">
+                            <div class="summary-label">Active Loans</div>
+                            <div class="summary-value">N/A</div>
+                        </div>
+                        <div class="summary-item">
+                            <div class="summary-label">Default Rate</div>
+                            <div class="summary-value">N/A</div>
+                        </div>
+                        <div class="summary-item">
+                            <div class="summary-label">Avg. Loan Size</div>
+                            <div class="summary-value">N/A</div>
+                        </div>
+                        <div class="summary-item">
+                            <div class="summary-label">Total Interest Earned</div>
+                            <div class="summary-value">N/A</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <div class="stat-icon pending">
+                            🏘️
+                        </div>
+                        <div class="stat-info">
+                            <h3>N/A</h3>
+                            <p>Villages Served</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon approved">
+                            👥
+                        </div>
+                        <div class="stat-info">
+                            <h3>N/A</h3>
+                            <p>Borrowers</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon total">
+                            📈
+                        </div>
+                        <div class="stat-info">
+                            <h3>98.7%</h3>
+                            <p>Repayment Rate</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon repaid">
+                            ⭐
+                        </div>
+                        <div class="stat-info">
+                            <h3>4.8/5</h3>
+                            <p>Borrower Satisfaction</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Settings Page -->
+            <div id="settings" class="page-section">
+                <div class="settings-container">
+                    <div class="settings-section">
+                        <h3>Profile Settings</h3>
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" class="form-control" value="Admin">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" class="form-control" value="admin.lender@ruralfund.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" class="form-control" value="+91 98765 XXXXX">
+                        </div>
+                    </div>
+                    
+                    <div class="settings-section">
+                        <h3>Notification Preferences</h3>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" checked> Email notifications for new loan applications
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" checked> SMS alerts for urgent approvals
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox"> Weekly performance reports
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <button class="save-btn">Save Changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loan Details Modal -->
+    <div class="modal" id="loan-details-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-header">
+                <h3>Loan Application Details</h3>
+            </div>
+            <div id="loan-details-loading" class="loading">
+                Loading loan details...
+            </div>
+            <div class="loan-details" id="loan-details-content" style="display: none;">
+                <!-- Loan details from API -->
+            </div>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script>
+        const cognitoDomain = "https://eu-north-1aubs3zojp.auth.eu-north-1.amazoncognito.com";
+        const clientId = "5b4fjd5mto265f25ldvc2u7p98";
+        const redirectUri = "https://d1qdrvzd3j8qpa.cloudfront.net";
+        const region = "eu-north-1";
+
+        // Redirect to login if not authenticated
+        function login() {
+            const loginUrl = `${cognitoDomain}/login?client_id=${clientId}&response_type=code&scope=email+openid&redirect_uri=${redirectUri}`;
+            window.location.href = loginUrl;
+        }
+
+        // Log out user
+        function logout() {
+            const logoutUrl = `${cognitoDomain}/logout?client_id=${clientId}&logout_uri=${redirectUri}`;
+            window.location.href = logoutUrl;
+        }
+
+        // Helper: Get query params
+        function getQueryParam(name) {
+            return new URLSearchParams(window.location.search).get(name);
+        }
+
+        // Exchange code for tokens
+        async function exchangeCodeForToken(code) {
+            const body = `grant_type=authorization_code&client_id=${clientId}&code=${code}&redirect_uri=${redirectUri}`;
+            const response = await fetch(`${cognitoDomain}/oauth2/token`, {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body,
+            });
+            const data = await response.json();
+            if (data.access_token) {
+                localStorage.setItem("access_token", data.access_token);
+                console.log("Access token stored ✅");
+                window.history.replaceState({}, document.title, redirectUri); // clean URL
+            } else {
+                console.error("Token exchange failed:", data);
+            }
+        }
+
+        // Auto-run on page load
+        (async function init() {
+            const token = localStorage.getItem("access_token");
+            const code = getQueryParam("code");
+
+            if (code && !token) {
+                await exchangeCodeForToken(code);
+            } else if (!token) {
+                login(); // redirect to Cognito login
+            }
+        })();
+    </script>
+</body>
+</html>
