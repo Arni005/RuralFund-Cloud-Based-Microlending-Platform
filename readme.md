@@ -14,7 +14,7 @@ This ensures villagers can reliably request loans, view repayment schedules, and
 
 **1. Frontend (PWA)**
 
-* Built with React (or Vue/Angular)
+* Built with React 
 * Offline storage with **IndexedDB** (via Dexie.js)
 * **Service Workers** + Workbox for caching & background sync
 
@@ -23,7 +23,7 @@ This ensures villagers can reliably request loans, view repayment schedules, and
 * **DynamoDB** → Loan requests, repayments, user data
 * **AWS Lambda** → Handles sync, loan logic, approvals
 * **API Gateway** → REST/GraphQL APIs for borrowers & lenders
-* **S3 + CloudFront** → Hosting the PWA
+* **S3 + CloudFront** → Hosting the lender's dashboard
 
 **3. Authentication & Security**
 
@@ -89,6 +89,7 @@ This ensures villagers can reliably request loans, view repayment schedules, and
 * **Version Control & Dev Tools:** GitHub, Postman
 
 ---
+
 
 
 
