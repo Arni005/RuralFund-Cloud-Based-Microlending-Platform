@@ -1,5 +1,3 @@
----
-
 # 🌾 RuralFund – Cloud-Based Microlending Platform (Offline-First)
 
 ## 📌 Project Summary
@@ -91,6 +89,7 @@ This ensures villagers can reliably request loans, view repayment schedules, and
 * **Version Control & Dev Tools:** GitHub, Postman
 
 ---
+
 
 
 
